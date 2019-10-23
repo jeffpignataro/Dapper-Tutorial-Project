@@ -13,6 +13,10 @@ using Microsoft.Extensions.Options;
 
 namespace Dapper_Tutorial_Project
 {
+    public class InternalOptions
+    {
+        public string ConnectionString { get; set; }
+    }
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -27,8 +31,8 @@ namespace Dapper_Tutorial_Project
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<AttendeeDemoContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("AttendeeDemo")));
+            services.Configure<InternalOptions>(options =>
+                options.ConnectionString = Configuration.GetConnectionString("AttendeeDemo"));
 
         }
 

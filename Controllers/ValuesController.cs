@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlClient;
+using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
+using Dapper;
 
 namespace Dapper_Tutorial_Project.Controllers
 {
@@ -11,11 +13,18 @@ namespace Dapper_Tutorial_Project.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private string ConnectionString { get; set; }
+        public ValuesController(IOptions<InternalOptions> options)
+        {
+            ConnectionString = options.Value.ConnectionString;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            using (var db = new SqlConnection(Configuration.GetConnectionString("AttendeeDemo")))
+            var PersonQuery = "SELECT * FROM Person";
+
+            using (var db = new MySqlConnection(ConnectionString))
             {
                 var people = db.Query<Person>(PersonQuery);
 
