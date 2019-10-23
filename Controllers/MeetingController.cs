@@ -32,9 +32,13 @@ namespace Dapper_Tutorial_Project.Controllers
         }
         // GET api/Meeting/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public Meeting Get(int id)
         {
-            return "value";
+            using (var db = new MySqlConnection(ConnectionString))
+            {
+                var meeting = db.Get<Meeting>(id); // Using SimpleCRUD Extensions
+                return meeting;
+            }
         }
 
         // POST api/Meeting
