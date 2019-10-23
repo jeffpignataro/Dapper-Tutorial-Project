@@ -20,20 +20,29 @@ namespace Dapper_Tutorial_Project.Controllers
         }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IEnumerable<Person> Get()
         {
             var PersonQuery = "SELECT * FROM Person";
 
             using (var db = new MySqlConnection(ConnectionString))
             {
                 var people = db.Query<Person>(PersonQuery);
-
-                foreach (Person p in people)
-                {
-                    Console.WriteLine(p.Name);
-                }
+                return people;
             }
-            return new string[] { "value1", "value2" };
+        }
+
+        // GET api/values/GetMeetings
+        [HttpGet]
+        [Route("/api/values/GetMeetings")]
+        public IEnumerable<Person> GetMeetings()
+        {
+            var query = "SELECT * FROM Meeting";
+
+            using (var db = new MySqlConnection(ConnectionString))
+            {
+                var meetings = db.Query<Person>(query);
+                return meetings;
+            }
         }
 
         // GET api/values/5
