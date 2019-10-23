@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,7 @@ namespace Dapper_Tutorial_Project
 
             services.Configure<InternalOptions>(options =>
                 options.ConnectionString = Configuration.GetConnectionString("AttendeeDemo"));
+            SimpleCRUD.SetDialect(SimpleCRUD.Dialect.MySQL);
 
         }
 
