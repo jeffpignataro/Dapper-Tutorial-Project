@@ -41,6 +41,7 @@ namespace Dapper_Tutorial_Project
                                         "https://localhost:5500",
                                         "https://127.0.0.1:5500");
                     builder.AllowAnyHeader();
+                    builder.AllowAnyMethod();
                 });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
